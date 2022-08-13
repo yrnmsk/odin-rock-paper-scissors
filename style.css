@@ -1,0 +1,11 @@
+/* ! debug */
+/* * { outline: 1px solid red; } */
+/* ! debug */
+
+body {
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
