@@ -27,16 +27,24 @@ header {
   gap: 1vh;
 }
 
-header #title {
+#title {
   display: flex;
   width: max-content;
   height: max-content;
 }
 
-header #points {
+#points {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: max-content;
+  height: max-content;
+  gap: 1vw;
+}
+
+#round {
+  display: flex;
+  flex-direction: row;
   width: max-content;
   height: max-content;
   gap: 1vw;
@@ -49,14 +57,6 @@ main {
   justify-content: center;
   flex: 10;
   gap: 2vh;
-}
-
-#round {
-  display: flex;
-  flex-direction: row;
-  width: max-content;
-  height: max-content;
-  gap: 1vw;
 }
 
 #choices {
