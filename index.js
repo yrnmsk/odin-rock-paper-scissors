@@ -4,7 +4,9 @@ const CHOICES = [
   { text: 'Scissors', icon: '&#9996;' }
 ];
 
-const pattern = (data, parent) => {
+const renderChoices = (data, parent, replaces = false, which) => {
+  if (replaces) data = CHOICES.find(CHOICE => CHOICE.text == data);
+
   const container = document.createElement('div');
   const icon = document.createElement('div');
   const h1 = document.createElement('h1');
@@ -25,78 +27,35 @@ const pattern = (data, parent) => {
   container.appendChild(icon);
   container.appendChild(h2);
 
-  parent.appendChild(container);
+  if (replaces && which == 'human') {
+    try { parent.replaceChild(container, parent.firstChild); }
+    catch { parent.appendChild(container); }
+  } else if (replaces && which == 'computer') {
+    if (parent.children.length == 1) parent.appendChild(container);
+    else parent.replaceChild(container, parent.lastChild);
+  } else parent.appendChild(container);
 };
-
-const choices = document.querySelector('#choices');
-
-CHOICES.forEach(CHOICE => pattern(CHOICE, choices));
-
-// const [ humanTextChoice, humanIconChoice ] = [
-//   document.querySelector('.pick-human-text'),
-//   document.querySelector('.pick-human-icon')
-// ];
-// const [ computerTextChoice, computerIconChoice ] = [
-//   document.querySelector('.pick-computer-text'),
-//   document.querySelector('.pick-computer-icon')
-// ];
-
-// const [ humanPts, computerPts ] = [
-//   document.querySelector('.pts-human'),
-//   document.querySelector('.pts-computer')
-// ]
-
-// const [ round, rounds ] = [
-//   document.querySelector('.round'),
-//   document.querySelector('.rounds')
-// ];
 
 let [ currentHumanChoice, currentComputerChoice ] = [];
 
-// const reset = () => {
-//   [ currentHumanChoice, currentComputerChoice ] = [];
-//   [ humanPts.textContent, computerPts.textContent, round.textContent ] = [ 0, 0, 0 ];
-// };
+const picks = document.querySelector('.picks');
 
 const madeHumanChoice = event => {
   const choice = CHOICES.find(choice => choice.text == event.target.classList[0]);
   currentHumanChoice = choice.text;
-  // [ humanTextChoice.innerHTML, humanIconChoice.innerHTML ] = [ choice.text, choice.icon ];
-  // makeRandomComputerChoice();
+  renderChoices(currentHumanChoice, picks, true, 'human');
+  makeRandomComputerChoice();
 };
 
-// const makeRandomComputerChoice = () => {
-//   const choice = CHOICES[Math.floor(Math.random() * 3)];
-//   // if (currentHumanChoice == currentComputerChoice) return makeRandomComputerChoice();
-//   currentComputerChoice = choice.text;
-//   // [ computerTextChoice.innerHTML, computerIconChoice.innerHTML ] = [ choice.text, choice.icon ];
-//   // chooseRoundWinner();
-// };
+const makeRandomComputerChoice = () => {
+  const choice = CHOICES[Math.floor(Math.random() * 3)];
+  currentComputerChoice = choice.text;
+  renderChoices(currentComputerChoice, picks, true, 'computer');
+};
 
-// const chooseRoundWinner = () => {
-//   if (currentHumanChoice == currentComputerChoice) return;
-//   switch (currentHumanChoice) {
-//     case CHOICES[0].text:
-//       if (currentComputerChoice == CHOICES[1].text) ++computerPts.textContent;
-//       else ++humanPts.textContent;
-//       break;
-//     case CHOICES[1].text:
-//       if (currentComputerChoice == CHOICES[2].text) ++computerPts.textContent;
-//       else ++humanPts.textContent;
-//       break;
-//     case CHOICES[2].text:
-//       if (currentComputerChoice == CHOICES[0].text) ++computerPts.textContent;
-//       else ++humanPts.textContent;
-//       break;
-//   }
-//   ++round.textContent;
-//   chooseGameWinner();
-// };
+const choices = document.querySelector('#choices');
 
-// const chooseGameWinner = () => {
-//   if (round.textContent != rounds.textContent) return;
-//   reset();
-// };
+CHOICES.forEach(CHOICE => renderChoices(CHOICE, choices));
 
 const humanChoices = Array.from(document.querySelector('#choices').children);
 humanChoices.forEach(humanChoice => humanChoice.addEventListener('click', madeHumanChoice));

@@ -59,6 +59,7 @@ main {
   gap: 2vh;
 }
 
+#showcase .picks,
 #choices {
   display: flex;
   align-items: center;
@@ -84,9 +85,8 @@ main {
 
 #choices .choice { cursor: pointer; }
 
-#choices .choice:last-child .icon {
-  transform: rotate(270deg);
-}
+#showcase .choice.Scissors .icon,
+#choices .choice+.Scissors .icon { transform: rotate(270deg); }
 
 /* footer {
   display: flex;
