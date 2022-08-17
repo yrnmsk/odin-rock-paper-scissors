@@ -68,8 +68,8 @@ main {
   gap: 3vw;
 }
 
+#showcase .choice,
 #choices .choice {
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,6 +81,8 @@ main {
   width: max-content;
   height: max-content;
 }
+
+#choices .choice { cursor: pointer; }
 
 #choices .choice:last-child .icon {
   transform: rotate(270deg);
