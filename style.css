@@ -1,0 +1,101 @@
+body, *, *::before, *::after {
+  user-select: none;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 1vh;
+}
+
+#title {
+  display: flex;
+  width: max-content;
+  height: max-content;
+}
+
+#points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  height: max-content;
+  gap: 1vw;
+}
+
+#round {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  height: max-content;
+  gap: 1vw;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 10;
+  gap: 2vh;
+}
+
+#picks,
+#choices {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  height: max-content;
+  gap: 3vw;
+}
+
+#picks .choice,
+#choices .choice {
+  outline: none;
+  border: 1px solid hsl(0, 0%, 25%);
+  border-radius: 7px;
+  transform: scale(.98);
+  opacity: .9;
+  background: hsl(0, 0%, 25%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  min-width: 175px;
+  min-height: 175px;
+  max-width: 360px;
+  max-height: 360px;
+  width: max-content;
+  height: max-content;
+  transition:
+    background .1s ease-in-out,
+    border .1s ease-in-out,
+    opacity .1s ease-in-out,
+    transform .1s ease-in-out;
+}
+
+#picks .choice,
+#choices .choice:hover {
+  background: hsl(0, 0%, 50%);
+  opacity: 1;
+  transform: scale(1);
+  border-color: black;
+  border-radius: 3px;
+} 
+
+#choices .choice { cursor: pointer; }
+
+#picks .choice+.Scissors .icon,
+#choices .choice+.Scissors .icon { transform: rotate(270deg); }
