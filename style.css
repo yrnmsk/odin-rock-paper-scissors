@@ -54,12 +54,12 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   flex: 10;
   gap: 2vh;
 }
 
-#showcase .picks,
+#picks,
 #choices {
   display: flex;
   align-items: center;
@@ -69,7 +69,7 @@ main {
   gap: 3vw;
 }
 
-#showcase .choice,
+#picks .choice,
 #choices .choice {
   display: flex;
   flex-direction: column;
@@ -85,7 +85,7 @@ main {
 
 #choices .choice { cursor: pointer; }
 
-#showcase .choice.Scissors .icon,
+#picks .choice+.Scissors .icon,
 #choices .choice+.Scissors .icon { transform: rotate(270deg); }
 
 /* footer {

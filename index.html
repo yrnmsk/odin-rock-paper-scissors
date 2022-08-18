@@ -8,23 +8,24 @@
   <body>
     <header>
       <h2 id="title">Rock, Paper, Scissors!</h2>
-      <h3 id="points">
-        <span class="pts-human">0</span>
-        Human
-        <span class="separator">|</span>
-        Computer
-        <span class="pts-computer">0</span></h3>
-      <h1 id="round">Round: <span class="round">0</span> of <span class="rounds">5</span></h1>
     </header>
     <main>
-      <section id="showcase">
-        <div class="confetti"></div>
-        <div class="picks"></div>
-        <div class="winner"></div>
+      <h1 id="round">
+        Round: <span id="onRound">0</span>
+        of <span id="ofRounds">5</span>
+      </h1>
+      <h3 id="points">
+        <span class="pts-human">0</span> Human
+        <span class="pts-separator">|</span> Computer
+        <span class="pts-computer">0</span>
+      </h3>
+      <section id="picks">
+        <h1 class="choice">?</h1>
+        <h3>vs</h3>
+        <h1 class="choice">?</h1>
       </section>
       <section id="choices"></section>
     </main>
-    <!-- <footer></footer> -->
     <script src="index.js"></script>
   </body>
 </html>

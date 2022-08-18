@@ -27,18 +27,10 @@ const renderChoices = (data, parent, replaces = false, which) => {
   container.appendChild(icon);
   container.appendChild(h2);
 
-  if (replaces && which == 'human') {
-    try { parent.replaceChild(container, parent.firstChild); }
-    catch { parent.appendChild(container); }
-  } else if (replaces && which == 'computer') {
-    if (parent.children.length == 1) parent.appendChild(container);
-    else parent.replaceChild(container, parent.lastChild);
-  } else parent.appendChild(container);
+  if (!(replaces && which)) parent.appendChild(container);
+  else if (which == 'human') parent.replaceChild(container, parent.children[0]);
+  else parent.replaceChild(container, parent.children[2]);
 };
-
-let [ currentHumanChoice, currentComputerChoice ] = [];
-
-const picks = document.querySelector('.picks');
 
 const madeHumanChoice = event => {
   const choice = CHOICES.find(choice => choice.text == event.target.classList[0]);
@@ -51,8 +43,45 @@ const makeRandomComputerChoice = () => {
   const choice = CHOICES[Math.floor(Math.random() * 3)];
   currentComputerChoice = choice.text;
   renderChoices(currentComputerChoice, picks, true, 'computer');
+  chooseRoundWinner();
 };
 
+const chooseRoundWinner = () => {
+  if (currentHumanChoice == currentComputerChoice) return;
+  switch (currentHumanChoice) {
+    case CHOICES[0].text:
+      if (currentComputerChoice == CHOICES[1].text) ++computerPts.textContent;
+      else ++humanPts.textContent;
+      break;
+    case CHOICES[1].text:
+      if (currentComputerChoice == CHOICES[2].text) ++computerPts.textContent;
+      else ++humanPts.textContent;
+      break;
+    case CHOICES[2].text:
+      if (currentComputerChoice == CHOICES[0].text) ++computerPts.textContent;
+      else ++humanPts.textContent;
+      break;
+  }
+  ++onRound.textContent;
+  chooseGameWinner();
+};
+
+const chooseGameWinner = () => {
+  if (onRound.textContent != ofRounds.textContent) return;
+  window.alert(humanPts.textContent > computerPts.textContent ? 'Player Won!': 'Computer Won!');
+  [ currentHumanChoice, currentComputerChoice ] = [];
+  [ humanPts.textContent, computerPts.textContent, onRound.textContent ] = [ 0, 0, 0 ];
+};
+
+let [ currentHumanChoice, currentComputerChoice ] = [];
+
+const [ humanPts, computerPts ] = [
+  document.querySelector('.pts-human'),
+  document.querySelector('.pts-computer'),
+];
+const onRound = document.querySelector('#onRound');
+const ofRounds = document.querySelector('#ofRounds');
+const picks = document.querySelector('#picks');
 const choices = document.querySelector('#choices');
 
 CHOICES.forEach(CHOICE => renderChoices(CHOICE, choices));
