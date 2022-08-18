@@ -43,10 +43,10 @@ const makeRandomComputerChoice = () => {
   const choice = CHOICES[Math.floor(Math.random() * 3)];
   currentComputerChoice = choice.text;
   renderChoices(currentComputerChoice, picks, true, 'computer');
-  chooseRoundWinner();
+  roundEnd();
 };
 
-const chooseRoundWinner = () => {
+const roundEnd = () => {
   if (currentHumanChoice == currentComputerChoice) return;
   switch (currentHumanChoice) {
     case CHOICES[0].text:
@@ -63,12 +63,17 @@ const chooseRoundWinner = () => {
       break;
   }
   ++onRound.textContent;
-  chooseGameWinner();
+  gameEnd();
 };
 
-const chooseGameWinner = () => {
+const gameEnd = () => {
   if (onRound.textContent != ofRounds.textContent) return;
-  window.alert(humanPts.textContent > computerPts.textContent ? 'Player Won!': 'Computer Won!');
+  window.alert(humanPts.textContent > computerPts.textContent ?
+    `Human Won! (${humanPts.textContent} of ${computerPts.textContent})` :
+    `Computer Won! (${computerPts.textContent} of ${humanPts.textContent})`
+  );
+  picks.children[0].innerHTML = '<h1 class="choice">?</h1>';
+  picks.children[2].innerHTML = '<h1 class="choice">?</h1>';
   [ currentHumanChoice, currentComputerChoice ] = [];
   [ humanPts.textContent, computerPts.textContent, onRound.textContent ] = [ 0, 0, 0 ];
 };
